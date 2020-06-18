@@ -4,6 +4,7 @@ This program mimics functionality of [Unicorn](https://yhbt.net/unicorn/), witho
 
 The included `supervisor.l` can be used to spawn multiple _worker_ processes which perform tasks in an infinite loop.
 
+![Supervisor](https://user-images.githubusercontent.com/153401/85007713-68f87b80-b14b-11ea-840e-aed11b992a72.png)
 
   1. [Requirements](#requirements)
   2. [Getting Started](#getting-started)

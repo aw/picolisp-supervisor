@@ -169,5 +169,4 @@
         (catch 'sv-error
           (sv-parent-start) ]            # start running the parent process
 
-(wait)
 (bye)
