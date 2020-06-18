@@ -137,9 +137,10 @@
 
 # Set the process name of the parent or child
 [de sv-proc-name (Name)
-  (cond ((= *OS "Linux")    (native "@" "prctl" NIL *SV_PR_SET_NAME Name))
-        ((= *OS "FreeBSD")  (native "@" "setproctitle" NIL "%s" Name))
-        (T NIL) ]
+  (when (== 64 64)
+        (cond ((= *OS "Linux")    (native "@" "prctl" NIL *SV_PR_SET_NAME Name))
+              ((= *OS "FreeBSD")  (native "@" "setproctitle" NIL "%s" Name))
+              (T NIL) ]
 
 # Start the parent process
 [de sv-parent-start ()
