@@ -34,13 +34,13 @@
 
 # Perform some cleanup tasks in the worker process (child)
 [de sv-cleanup-worker (Num)
-  (prinl (sv-child-name Num) " exited") ]
+  (sv-print (sv-child-name Num) " exited") ]
 
 # Things to run after forking the worker
 # The (load)'ed worker code CAN DEFINE its own (after-fork) function which
 # will be called here.
 [de sv-after-fork (Num)
-  (prinl (sv-child-name Num) " spawned pid=" *Pid)
+  (sv-print (sv-child-name Num) " spawned pid=" *Pid)
   (when after-fork (after-fork Num) ]    # run tasks after forking the worker
 
 # Perform some initial work in the child process
@@ -57,7 +57,7 @@
   (finally
     (sv-cleanup-worker Num)              # cleanup once the worker exits
     (catch 'sv-error
-      (prinl (sv-child-name Num) " ready")
+      (sv-print (sv-child-name Num) " ready")
       (loop                              # loop forever
         (worker-start Num)               # start the worker
         (unless (kill *PPid 0) (bye)) )  # exit the loop if the parent is gone
@@ -82,7 +82,7 @@
 # The (load)'ed worker code CAN DEFINE its own (before-fork) function which
 # will be called here.
 [de sv-before-fork (Num)
-  (prinl (sv-child-name Num) " spawning..")
+  (sv-print (sv-child-name Num) " spawning..")
   (when before-fork (before-fork Num) ]  # run tasks before forking the worker
 
 # Get the process ID of the worker process (child)
@@ -102,7 +102,7 @@
 # Compare how many workers we have with the amount of workers there should be
 [de sv-maintain-worker-count ()
   (when (lt0 (- (length *SV_WORKERS) *SV_MAX_WORKERS))
-        (prinl "spawning " (abs @) " missing workers: ")
+        (sv-print "spawning " (abs @) " missing workers: ")
         (sv-spawn-missing-workers) ) ]   # spawn if there's at least 1 missing
 
 # Give a unique name to each worker process (child)
@@ -113,7 +113,7 @@
 [de sv-reap-worker (N)
   (setq *SV_WORKERS (delete N *SV_WORKERS))
   (kill (car N))
-  (prinl "reaped " (car N) " " (sv-child-name (cdr N) ]
+  (sv-print "reaped " (car N) " " (sv-child-name (cdr N) ]
 
 # Tries to reap all unreaped workers
 [de sv-reap-all-workers ()
@@ -133,7 +133,7 @@
 
 # Perform some cleanup tasks in the parent process
 [de sv-cleanup-parent ()
-  (prinl "parent exited") ]
+  (sv-print "parent exited") ]
 
 # Set the process name of the parent or child
 [de sv-proc-name (Name)
@@ -142,12 +142,16 @@
               ((= *OS "FreeBSD")  (native "@" "setproctitle" NIL "%s" Name))
               (T NIL) ]
 
+# Print a message to STDOUT with timestamp
+[de sv-print @
+  (prinl "[" (dat$ (date) "-") "T" (tim$ (time) T) "] " (rest) ]
+
 # Start the parent process
 [de sv-parent-start ()
   (on Respawn)
 
   (sv-proc-name "parent")
-  (prinl "parent process ready pid=" *Pid)
+  (sv-print "parent process ready pid=" *Pid)
 
   (when *SV_PRELOAD_APP (load *SV_APP))  # load the worker code in the parent
 
