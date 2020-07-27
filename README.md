@@ -17,7 +17,7 @@ The included `supervisor.l` can be used to spawn multiple _worker_ processes whi
 
 # Requirements
 
-  * PicoLisp 32-bit/64-bit `v17.12` to `v20.5.26`
+  * PicoLisp 32-bit/64-bit `v17.12` to `v20.6.29`
   * Linux or UNIX-like OS
 
 # Getting Started
