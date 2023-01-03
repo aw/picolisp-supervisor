@@ -3,7 +3,7 @@
 # Example worker which sleeps for a random number of seconds
 #
 # The MIT License (MIT)
-# Copyright (c) 2020 Alexander Williams, On-Prem <license@on-premises.com>
+# Copyright (c) 2020~ Alexander Williams, On-Prem <license@on-premises.com>
 
 [de before-fork (Num)
   (prinl "parent pid=" *Pid " do this before forking") ]

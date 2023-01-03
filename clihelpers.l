@@ -3,7 +3,7 @@
 # Command-line tool helpers
 #
 # The MIT License (MIT)
-# Copyright (c) 2020 Alexander Williams, On-Prem <license@on-premises.com>
+# Copyright (c) 2020~ Alexander Williams, On-Prem <license@on-premises.com>
 
 ### HELPERS
 [de sv-options (N)

@@ -3,7 +3,7 @@
 # Unicorn-inspired PicoLisp daemon to spawn and manage worker processes
 #
 # The MIT License (MIT)
-# Copyright (c) 2020 Alexander Williams, On-Prem <license@on-premises.com>
+# Copyright (c) 2020~ Alexander Williams, On-Prem <license@on-premises.com>
 
 [de APP_HELP
   ("usage"     "./supervisor.l --app <yourapp> [option] [arguments]")

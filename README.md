@@ -17,7 +17,7 @@ The included `supervisor.l` can be used to spawn multiple _worker_ processes whi
 
 # Requirements
 
-  * PicoLisp 32-bit/64-bit `v17.12` to `v20.6.29`
+  * PicoLisp 32-bit/64-bit `v17.12` to `v20.6.29`, and 64-bit `pil21`
   * Linux or UNIX-like OS
 
 # Getting Started
@@ -91,7 +91,7 @@ This section will explain some important technical details about the code, and l
   * Similar to [Unicorn](https://yhbt.net/unicorn/), there are `(before-fork)` and `(after-fork)` hooks which will be called if they're defined in your app (totally optional). Of course, `(before-fork)` happens in the parent process, right before the child is forked, and `(after-fork)` happens in the child process, right after it's forked.
   * The `(before-fork)` hook will only be called when `--preload` is provided, since there's no way to call the function before the code is even loaded.
   * The unique sequential ID _number_ of the worker process will be sent as the one and only argument to `(before-fork)` and `(after-fork)`. This can be used in the app to conditionally perform tasks based on its ID (ex: worker ID 0 could verify the integrity of a database, while the other workers simply query it).
-  * The supervisor is quite verbose, but this is necessary to see the status of what the workers are doing. Standard *NIX tools can be used to redirect output to a log file or `/dev/null` if needed.
+  * The supervisor is quite verbose, but this is necessary to see the status of what the workers are doing. Standard *NIX* tools can be used to redirect output to a log file or `/dev/null` if needed.
   * Every time a worker loops on a task, it checks if the parent is still there. If not, it will exit cleanly on its own. This allows the parent to be stopped with `kill -9` (or `kill -KILL`), and the workers will continue their work and exit cleanly when they're done.
   * Sending a regular kill signal to the parent (ex: `kill -15` or `kill -TERM`) will terminate all workers and the parent immediately.
 
@@ -123,4 +123,4 @@ This library comes with very basic [integration tests](https://github.com/aw/pic
 
 [MIT License](LICENSE)
 
-Copyright (c) 2020 Alexander Williams, On-Prem <license@on-premises.com>
+Copyright (c) 2020~ Alexander Williams, On-Prem <license@on-premises.com>
